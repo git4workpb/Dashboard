@@ -1,2 +1,4 @@
 .env
 ManufacturingDashboard/.env.postgres
+.env.backend
+.env.postgres
