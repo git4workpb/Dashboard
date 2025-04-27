@@ -13,9 +13,9 @@ class ProductMaster(models.Model):
 
 
 class MachineMaster(models.Model):
-    name_of_machine = models.CharField(max_length=255, primary_key=True, editable=False)
+    name_of_machine = models.CharField(max_length=255, primary_key=True)
     machine_process_name = models.CharField(max_length=500)
-    mould = models.CharField(max_length=255)
+    mould = models.CharField(max_length=255, blank=True, null=True)
     machine_capacity = models.FloatField()
     machine_final_produce_product_name = models.CharField(max_length=255)
 
@@ -27,7 +27,7 @@ class JobCard(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # Unique primary key using UUID
     date = models.DateField()
     machine_name = models.ForeignKey('MachineMaster', on_delete=models.CASCADE)
-    product_name = models.ForeignKey('ProductMaster', on_delete=models.CASCADE)
+    product_name = models.CharField(max_length=255)
     product_qty = models.FloatField()
 
     def __str__(self):
@@ -53,10 +53,10 @@ class BOM(models.Model):
     bom_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # Unique primary key using UUID
     bom_name = models.CharField(max_length=255)
     produce_quantity = models.FloatField()
+    date = models.DateField()
 
     def __str__(self):
         return self.bom_name
-
 
 class BOMItems(models.Model):
     bom = models.ForeignKey(BOM, on_delete=models.CASCADE, related_name='bom_items')  # One-to-Many relationship with BOM

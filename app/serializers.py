@@ -35,3 +35,8 @@ class BOMItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BOMItems
         fields = '__all__'
+        
+class MachineMasterGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MachineMaster
+        fields = ['name_of_machine','product_name']
