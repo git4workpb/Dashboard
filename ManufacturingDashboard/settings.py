@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+
 ROOT_URLCONF = 'ManufacturingDashboard.urls'
 
 TEMPLATES = [
