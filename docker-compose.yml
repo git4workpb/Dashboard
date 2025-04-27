@@ -5,7 +5,7 @@ services:
     env_file:
       - .env.postgres
     volumes:
-      - dahsBoardDB:/var/lib/postgresql/data
+      - dashboardDB:/var/lib/postgresql/data
 
   backend:
     build: .
@@ -30,4 +30,4 @@ services:
       - .env.backend
 
 volumes:
-  dahsBoardDB:
+  dashboardDB:
