@@ -22,6 +22,9 @@ class MachineMaster(models.Model):
     def __str__(self):
         return self.name_of_machine
     
+class ShiftType(models.TextChoices):
+    DAY = 'DAY', 'Day Shift'
+    NIGHT = 'NIGHT', 'Night Shift'
 
 class JobCard(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # Unique primary key using UUID
@@ -29,6 +32,8 @@ class JobCard(models.Model):
     machine_name = models.ForeignKey('MachineMaster', on_delete=models.CASCADE)
     product_name = models.CharField(max_length=255)
     product_qty = models.FloatField()
+    operator_name = models.CharField(max_length=255, default="")
+    shift = models.CharField(max_length=10, choices=ShiftType.choices,default=ShiftType.DAY,)
 
     def __str__(self):
         return f"Job Card - {self.date} - {self.machine_name.name_of_machine}"
@@ -41,7 +46,7 @@ class PartyMaster(models.Model):
         return self.party_name
     
 class PartyAddress(models.Model):
-    party = models.ForeignKey(PartyMaster, on_delete=models.CASCADE, related_name='addresses')
+    party = models.ForeignKey(PartyMaster, on_delete=models.CASCADE, related_name='address')
     address = models.TextField()
 
     def __str__(self):
